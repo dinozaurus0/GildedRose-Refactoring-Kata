@@ -1,9 +1,7 @@
 @testable import GildedRose
 import XCTest
 
-internal final class GildedRoseTests: XCTestCase {
-}
-
+internal final class GildedRoseTests: XCTestCase {}
 
 // MARK: - Regular Items Tests
 extension GildedRoseTests {
@@ -44,6 +42,45 @@ extension GildedRoseTests {
         // then
         let expectedResult = [createItem(name: "Regular Element", sellIn: -1, quality: 0)]
         XCTAssertEqual(sut.items, expectedResult)
+    }
+}
+
+// MARK: - Aged Brie Items Tests
+extension GildedRoseTests {
+    func test_updateQuality_withAgedBrieItem_withOneDayPassed_shouldDecreaseSellInAndIncreaseQualityWithOne() {
+        // given
+        let items = [Item(name: "Aged Brie", sellIn: 5, quality: 10)]
+        let sut = makeSUT(items: items)
+
+        // when
+        sut.updateQuality()
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 4, quality: 11)])
+    }
+
+    func test_updateQuality_withAgedBrieItem_withSellDatePassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
+        // given
+        let items = [Item(name: "Aged Brie", sellIn: 0, quality: 5)]
+        let sut = makeSUT(items: items)
+
+        // when
+        sut.updateQuality()
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 7)])
+    }
+
+    func test_updateQuality_withAgedBrieItem_withQualityReachedFifty_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
+        // given
+        let items = [Item(name: "Aged Brie", sellIn: 10, quality: 50)]
+        let sut = makeSUT(items: items)
+
+        // when
+        sut.updateQuality()
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 9, quality: 50)])
     }
 }
 
