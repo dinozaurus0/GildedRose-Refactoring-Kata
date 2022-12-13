@@ -1,14 +1,15 @@
 //
-//  AgedBrieQualityCalculator.swift
+//  RegularItemQualityCalculator.swift
+//  
 //
 //  Created by Vlad Grigore Sima on 13.12.2022.
 //
 
 import Foundation
 
-public struct AgedBrieQualityCalculator: ItemQualityCalculator {
+public struct RegularItemQualityCalculator: ItemQualityCalculator {
     // MARK: - Properties
-    
+
     public let item: Item
 
     // MARK: - Init
@@ -21,23 +22,23 @@ public struct AgedBrieQualityCalculator: ItemQualityCalculator {
 
     public func computeQuality() {
         decreaseItemExpirationDate()
-        increaseItemQuality()
+        decreaseItemQuality()
         normaliseItemQuality()
     }
 
     // MARK: - Private Methods
 
-    private func increaseItemQuality() {
+    private func decreaseItemQuality() {
         if item.sellIn < 0 {
-            item.quality += 2
+            item.quality -= 2
         } else {
-            item.quality += 1
+            item.quality -= 1
         }
     }
 
     private func normaliseItemQuality() {
-        if item.quality > 50 {
-            item.quality = 50
+        if item.quality < 0 {
+            item.quality = 0
         }
     }
 }

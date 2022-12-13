@@ -11,3 +11,9 @@ public protocol ItemQualityCalculator {
     var item: Item { get }
     func computeQuality()
 }
+
+extension ItemQualityCalculator {
+    public func decreaseItemExpirationDate() {
+        item.sellIn -= 1
+    }
+}
