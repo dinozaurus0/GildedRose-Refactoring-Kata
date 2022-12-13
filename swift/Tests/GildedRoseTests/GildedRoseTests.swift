@@ -88,28 +88,30 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withSulfurusItem_withOneDayPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)]
+        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
+        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
     }
 
     func test_updateQuality_withSulfurusItem_withThreeDaysPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)]
+        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 3)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
+        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
     }
 }
+
+
 
 // MARK: - Helpers
 extension GildedRoseTests {
