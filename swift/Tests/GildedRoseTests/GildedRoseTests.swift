@@ -11,7 +11,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         let expectedResult = [createItem(name: "Regular Element", sellIn: 9, quality: 9)]
@@ -24,7 +24,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         let expectedResult = [createItem(name: "Regular Element", sellIn: -1, quality: 8)]
@@ -37,7 +37,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         let expectedResult = [createItem(name: "Regular Element", sellIn: -1, quality: 0)]
@@ -53,7 +53,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 4, quality: 11)])
@@ -65,7 +65,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 7)])
@@ -77,7 +77,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 9, quality: 50)])
@@ -92,7 +92,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
@@ -104,9 +104,7 @@ extension GildedRoseTests {
         let sut = makeSUT(items: items)
 
         // when
-        sut.updateQuality()
-        sut.updateQuality()
-        sut.updateQuality()
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 3)
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
@@ -121,5 +119,11 @@ extension GildedRoseTests {
 
     private func createItem(name: String, sellIn: Int, quality: Int) -> Item {
         Item(name: name, sellIn: sellIn, quality: quality)
+    }
+
+    private func emulateDaysPassing(sut: GildedRose, numberOfDaysPassed: Int) {
+        (0..<numberOfDaysPassed).forEach { _ in
+            sut.updateQuality()
+        }
     }
 }
