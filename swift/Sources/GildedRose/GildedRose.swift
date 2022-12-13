@@ -1,8 +1,15 @@
 public class GildedRose {
     public var items: [Item]
+    private let itemsQualityCalculators: [ItemQualityCalculator]
 
     public init(items: [Item]) {
         self.items = items
+        self.itemsQualityCalculators = []
+    }
+
+    public init(items: [Item], itemsQualityCalculators: [ItemQualityCalculator]) {
+        self.items = items
+        self.itemsQualityCalculators = itemsQualityCalculators
     }
 
     public func updateQuality() {
@@ -54,6 +61,15 @@ public class GildedRose {
                     }
                 }
             }
+        }
+
+        updateItemsQuality()
+    }
+
+    private func updateItemsQuality() {
+        itemsQualityCalculators.forEach { itemQualityCalculator in
+            itemQualityCalculator.computeQuality()
+            items.append(itemQualityCalculator.item)
         }
     }
 }
