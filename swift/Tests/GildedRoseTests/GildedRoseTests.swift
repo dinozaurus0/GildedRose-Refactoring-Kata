@@ -7,8 +7,8 @@ internal final class GildedRoseTests: XCTestCase {}
 extension GildedRoseTests {
     func test_updateQuality_withRegularItem_withOneDayPassed_shouldDecreaseSellInAndQualityWithOne() {
         // given
-        let items = [createItem(name: "Regular Element", sellIn: 10, quality: 10)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createRegularItemQualityCalculator(item: createItem(name: "Regular Element", sellIn: 10, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -20,8 +20,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withRegularItem_withSellDatePassed_shouldDecreaseSellInWithOneAndQualityWithTwo() {
         // given
-        let items = [createItem(name: "Regular Element", sellIn: 0, quality: 10)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createRegularItemQualityCalculator(item: createItem(name: "Regular Element", sellIn: 0, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -33,8 +33,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withRegularItem_withQualityReachedZero_shouldDecreaseSellInWithOneAndQualityShouldRemainZero() {
         // given
-        let items = [createItem(name: "Regular Element", sellIn: 0, quality: 0)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createRegularItemQualityCalculator(item: createItem(name: "Regular Element", sellIn: 0, quality: 0))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -194,6 +194,10 @@ extension GildedRoseTests {
 
     private func createItem(name: String, sellIn: Int, quality: Int) -> Item {
         Item(name: name, sellIn: sellIn, quality: quality)
+    }
+
+    private func createRegularItemQualityCalculator(item: Item) -> RegularItemQualityCalculator {
+        RegularItemQualityCalculator(item: item)
     }
 
     private func createAgedBrieQualityCalculator(item: Item) -> AgedBrieQualityCalculator {
