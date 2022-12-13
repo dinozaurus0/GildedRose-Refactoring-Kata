@@ -84,6 +84,35 @@ extension GildedRoseTests {
     }
 }
 
+// MARK: - Sulfuras Items Tests
+extension GildedRoseTests {
+    func test_updateQuality_withSulfurusItem_withOneDayPassed_shouldntDecreaseNeitherQualityNorSellIn() {
+        // given
+        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)]
+        let sut = makeSUT(items: items)
+
+        // when
+        sut.updateQuality()
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
+    }
+
+    func test_updateQuality_withSulfurusItem_withThreeDaysPassed_shouldntDecreaseNeitherQualityNorSellIn() {
+        // given
+        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)]
+        let sut = makeSUT(items: items)
+
+        // when
+        sut.updateQuality()
+        sut.updateQuality()
+        sut.updateQuality()
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 50)])
+    }
+}
+
 // MARK: - Helpers
 extension GildedRoseTests {
     private func makeSUT(items: [Item]) -> GildedRose {
