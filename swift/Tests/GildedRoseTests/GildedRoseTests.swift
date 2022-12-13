@@ -49,14 +49,14 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withAgedBrieItem_withOneDayPassed_shouldDecreaseSellInAndIncreaseQualityWithOne() {
         // given
-        let items = [Item(name: "Aged Brie", sellIn: 5, quality: 10)]
+        let items = [Item(name: "Aged Brie", sellIn: 1, quality: 10)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 4, quality: 11)])
+        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 0, quality: 11)])
     }
 
     func test_updateQuality_withAgedBrieItem_withSellDatePassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
@@ -69,6 +69,18 @@ extension GildedRoseTests {
 
         // then
         XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 7)])
+    }
+
+    func test_updateQuality_withAgedBrieItem_withQualityReachedFortyNine_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
+        // given
+        let items = [Item(name: "Aged Brie", sellIn: 0, quality: 49)]
+        let sut = makeSUT(items: items)
+
+        // when
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
+
+        // then
+        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 50)])
     }
 
     func test_updateQuality_withAgedBrieItem_withQualityReachedFifty_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
