@@ -49,50 +49,50 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withAgedBrieItem_withOneDayPassed_shouldDecreaseSellInAndIncreaseQualityWithOne() {
         // given
-        let itemsQualityCalculator = [AgedBrieQualityCalculator(item: Item(name: "Aged Brie", sellIn: 1, quality: 10))]
+        let itemsQualityCalculator = [createAgedBrieQualityCalculator(item: createItem(name: "Aged Brie", sellIn: 1, quality: 10))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 0, quality: 11)])
+        XCTAssertEqual(sut.items, [createItem(name: "Aged Brie", sellIn: 0, quality: 11)])
     }
 
     func test_updateQuality_withAgedBrieItem_withSellDatePassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let itemsQualityCalculator = [AgedBrieQualityCalculator(item: Item(name: "Aged Brie", sellIn: 0, quality: 5))]
+        let itemsQualityCalculator = [createAgedBrieQualityCalculator(item: createItem(name: "Aged Brie", sellIn: 0, quality: 5))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 7)])
+        XCTAssertEqual(sut.items, [createItem(name: "Aged Brie", sellIn: -1, quality: 7)])
     }
 
     func test_updateQuality_withAgedBrieItem_withQualityReachedFortyNine_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
         // given
-        let itemsQualityCalculator = [AgedBrieQualityCalculator(item: Item(name: "Aged Brie", sellIn: 0, quality: 49))]
+        let itemsQualityCalculator = [createAgedBrieQualityCalculator(item: createItem(name: "Aged Brie", sellIn: 0, quality: 49))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: -1, quality: 50)])
+        XCTAssertEqual(sut.items, [createItem(name: "Aged Brie", sellIn: -1, quality: 50)])
     }
 
     func test_updateQuality_withAgedBrieItem_withQualityReachedFifty_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
         // given
-        let itemsQualityCalculator = [AgedBrieQualityCalculator(item: Item(name: "Aged Brie", sellIn: 10, quality: 50))]
+        let itemsQualityCalculator = [createAgedBrieQualityCalculator(item: createItem(name: "Aged Brie", sellIn: 10, quality: 50))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Aged Brie", sellIn: 9, quality: 50)])
+        XCTAssertEqual(sut.items, [createItem(name: "Aged Brie", sellIn: 9, quality: 50)])
     }
 }
 
@@ -100,26 +100,26 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withSulfurusItem_withOneDayPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
+        let items = [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
+        XCTAssertEqual(sut.items, [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
     }
 
     func test_updateQuality_withSulfurusItem_withThreeDaysPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
+        let items = [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 3)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
+        XCTAssertEqual(sut.items, [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)])
     }
 }
 
@@ -127,62 +127,62 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withBackstagePassItem_withOneDayPassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 14, quality: 10)]
+        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 14, quality: 10)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 13, quality: 11)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 13, quality: 11)])
     }
 
     func test_updateQuality_withBackstagePassItem_withLessThanTenDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 10)]
+        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 10)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 12)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 12)])
     }
 
     func test_updateQuality_withBackstagePassItem_withLessThanFiveDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithThree() {
         // given
-        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 10)]
+        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 10)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 4, quality: 13)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 4, quality: 13)])
     }
 
     func test_updateQuality_withBackstagePassItem_withSellInReachedZero_shouldDecreaseSellInWithOneAndQualityBecomeZero() {
         // given
-        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 20)]
+        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 20)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: -1, quality: 0)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: -1, quality: 0)])
     }
 
     func test_updateQuality_withBackstagePassItem_withQualityReachedFifty_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
         // given
-        let items = [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 50)]
+        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 50)]
         let sut = makeSUT(items: items)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [Item(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 50)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 50)])
     }
 }
 
@@ -194,6 +194,10 @@ extension GildedRoseTests {
 
     private func createItem(name: String, sellIn: Int, quality: Int) -> Item {
         Item(name: name, sellIn: sellIn, quality: quality)
+    }
+
+    private func createAgedBrieQualityCalculator(item: Item) -> AgedBrieQualityCalculator {
+        AgedBrieQualityCalculator(item: item)
     }
 
     private func emulateDaysPassing(sut: GildedRose, numberOfDaysPassed: Int) {
