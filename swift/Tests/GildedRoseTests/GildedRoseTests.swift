@@ -197,22 +197,22 @@ extension GildedRoseTests {
         XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: -1, quality: 0)])
     }
 
-    func test_updateQuality_withBackstagePassItem_withQualityReachedFifty_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
+    func test_updateQuality_withBackstagePassItem_withMoreThanTenDaysLeft_shouldDecreaseSellInWithOneAndQualityShouldRemainFifty() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 50)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 12, quality: 50))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 50)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 11, quality: 50)])
     }
 
     func test_updateQuality_withBackstagePassItem_withLessThanTenDaysRemaining_withQualityReachedFortyNine_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 49))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -223,8 +223,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withBackstagePassItem_withLessThanFiveDaysRemaining_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 48)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 48))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -235,8 +235,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withBackstagePassItem_withLessThanFiveDaysRemaining_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 49))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)

@@ -23,6 +23,7 @@ public struct BackstagePassQualityCalculator: ItemQualityCalculator {
     public func computeQuality() {
         decreaseItemExpirationDate()
         increaseItemQuality()
+        normaliseItemQuality()
     }
 
     // MARK: - Private Methods
@@ -42,7 +43,13 @@ public struct BackstagePassQualityCalculator: ItemQualityCalculator {
             item.quality += 2
             return
         }
-
+        
         item.quality += 1
+    }
+    
+    private func normaliseItemQuality() {
+        if item.quality > 50 {
+            item.quality = 50
+        }
     }
 }
