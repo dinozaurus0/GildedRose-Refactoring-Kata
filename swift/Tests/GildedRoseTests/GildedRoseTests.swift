@@ -100,8 +100,8 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withSulfurusItem_withOneDayPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createSulfurusQualityCalculator(item: createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -112,8 +112,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withSulfurusItem_withThreeDaysPassed_shouldntDecreaseNeitherQualityNorSellIn() {
         // given
-        let items = [createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createSulfurusQualityCalculator(item: createItem(name: "Sulfuras, Hand of Ragnaros", sellIn: 10, quality: 80))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 3)
@@ -202,6 +202,10 @@ extension GildedRoseTests {
 
     private func createAgedBrieQualityCalculator(item: Item) -> AgedBrieQualityCalculator {
         AgedBrieQualityCalculator(item: item)
+    }
+
+    private func createSulfurusQualityCalculator(item: Item) -> SulfurusQualityCalculator {
+        SulfurusQualityCalculator(item: item)
     }
 
     private func emulateDaysPassing(sut: GildedRose, numberOfDaysPassed: Int) {
