@@ -28,6 +28,11 @@ public struct BackstagePassQualityCalculator: ItemQualityCalculator {
     // MARK: - Private Methods
 
     private func increaseItemQuality() {
+        guard item.sellIn >= 0 else {
+            item.quality = 0
+            return
+        }
+
         if item.sellIn < 6 {
             item.quality += 3
         } else if item.sellIn < 11 {

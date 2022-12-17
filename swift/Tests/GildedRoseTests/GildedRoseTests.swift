@@ -173,10 +173,22 @@ extension GildedRoseTests {
         XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 13)])
     }
 
+    func test_updateQuality_withBackstagePassItem_withLessThanOneDay_shouldDecreaseSellInWithOneAndIncreaseQualityWithThree() {
+        // given
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 1, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
+
+        // when
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
+
+        // then
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 13)])
+    }
+
     func test_updateQuality_withBackstagePassItem_withSellInReachedZero_shouldDecreaseSellInWithOneAndQualityBecomeZero() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 20)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0, quality: 20))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
