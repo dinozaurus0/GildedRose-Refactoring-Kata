@@ -127,8 +127,8 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withBackstagePassItem_withOneDayPassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 14, quality: 10)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 14, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -139,8 +139,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withBackstagePassItem_withLessThanTenDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 10)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -151,8 +151,8 @@ extension GildedRoseTests {
 
     func test_updateQuality_withBackstagePassItem_withLessThanFiveDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithThree() {
         // given
-        let items = [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 10)]
-        let sut = makeSUT(items: items)
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
@@ -242,6 +242,10 @@ extension GildedRoseTests {
 
     private func createSulfurusQualityCalculator(item: Item) -> SulfurusQualityCalculator {
         SulfurusQualityCalculator(item: item)
+    }
+
+    private func createBackstageQualityCalculator(item: Item) -> BackstagePassQualityCalculator {
+        BackstagePassQualityCalculator(item: item)
     }
 
     private func emulateDaysPassing(sut: GildedRose, numberOfDaysPassed: Int) {
