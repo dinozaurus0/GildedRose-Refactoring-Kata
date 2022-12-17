@@ -125,40 +125,52 @@ extension GildedRoseTests {
 
 // MARK: - Backstage Passes Items Tests
 extension GildedRoseTests {
-    func test_updateQuality_withBackstagePassItem_withOneDayPassed_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
+    func test_updateQuality_withBackstagePassItem_withMoreThanTenDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithOne() {
         // given
-        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 14, quality: 10))]
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 12, quality: 10))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 13, quality: 11)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 11, quality: 11)])
     }
 
     func test_updateQuality_withBackstagePassItem_withLessThanTenDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
         // given
-        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 10))]
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 11, quality: 10))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 9, quality: 12)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 10, quality: 12)])
+    }
+
+    func test_updateQuality_withBackstagePassItem_withLessThanSixDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithTwo() {
+        // given
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 7, quality: 10))]
+        let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
+
+        // when
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
+
+        // then
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 6, quality: 12)])
     }
 
     func test_updateQuality_withBackstagePassItem_withLessThanFiveDays_shouldDecreaseSellInWithOneAndIncreaseQualityWithThree() {
         // given
-        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 10))]
+        let itemsQualityCalculator = [createBackstageQualityCalculator(item: createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 6, quality: 10))]
         let sut = makeSUT(items: [], itemsQualityCalculator: itemsQualityCalculator)
 
         // when
         emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
 
         // then
-        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 4, quality: 13)])
+        XCTAssertEqual(sut.items, [createItem(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5, quality: 13)])
     }
 
     func test_updateQuality_withBackstagePassItem_withSellInReachedZero_shouldDecreaseSellInWithOneAndQualityBecomeZero() {
