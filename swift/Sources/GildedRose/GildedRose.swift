@@ -1,29 +1,24 @@
 public class GildedRose {
-    public var items: [Item]
-    private let itemsQualityCalculators: [ItemQualityCalculator]
-    
-    public init(items: [Item]) {
-        self.items = items
-        self.itemsQualityCalculators = []
+
+    // MARK: - Properties
+
+    public var items: [Item] {
+        itemsQualityCalculators.map { $0.item }
     }
-    
-    public init(items: [Item], itemsQualityCalculators: [ItemQualityCalculator]) {
-        self.items = items
+
+    private let itemsQualityCalculators: [ItemQualityCalculator]
+
+    // MARK: - Init
+
+    public init(itemsQualityCalculators: [ItemQualityCalculator]) {
         self.itemsQualityCalculators = itemsQualityCalculators
     }
 
-    public func updateQuality() {
-        updateItemsQuality()
-    }
+    // MARK: - Public method
     
-    private func updateItemsQuality() {
+    public func updateQuality() {
         itemsQualityCalculators.forEach { itemQualityCalculator in
             itemQualityCalculator.computeQuality()
-        }
-
-        // TODO: This will be removed later
-        if (items.isEmpty) {
-            items = itemsQualityCalculators.map { $0.item }
         }
     }
 }
