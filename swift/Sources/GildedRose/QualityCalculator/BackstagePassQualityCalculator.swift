@@ -33,12 +33,16 @@ public struct BackstagePassQualityCalculator: ItemQualityCalculator {
             return
         }
 
-        if item.sellIn < 6 {
+        guard item.sellIn >= 6 else {
             item.quality += 3
-        } else if item.sellIn < 11 {
-            item.quality += 2
-        } else {
-            item.quality += 1
+            return
         }
+
+        guard item.sellIn >= 11 else {
+            item.quality += 2
+            return
+        }
+
+        item.quality += 1
     }
 }
