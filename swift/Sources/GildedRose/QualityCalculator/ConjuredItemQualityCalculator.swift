@@ -26,6 +26,10 @@ public struct ConjuredItemQualityCalculator: ItemQualityCalculator {
 
     // MARK: - Private Methods
     private func decreaseItemQuality() {
-        item.quality -= 2
+        if item.sellIn > 0 {
+            item.quality -= 2
+        } else {
+            item.quality -= 4
+        }
     }
 }
