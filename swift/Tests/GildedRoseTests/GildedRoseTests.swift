@@ -273,6 +273,19 @@ extension GildedRoseTests {
         let expectedResult = [createItem(name: "Conjured Mana Cake", sellIn: -1, quality: 7)]
         XCTAssertEqual(sut.items, expectedResult)
     }
+
+    func test_updateQuality_withConjuredItem_withQualityReachedZero_shouldDecreaseSellInWithOneAndQualityShouldRemainZero() {
+        // given
+        let itemsQualityCalculator = [ConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 0, quality: 0))]
+        let sut = makeSUT(itemsQualityCalculator: itemsQualityCalculator)
+
+        // when
+        emulateDaysPassing(sut: sut, numberOfDaysPassed: 1)
+
+        // then
+        let expectedResult = [createItem(name: "Conjured Mana Cake", sellIn: -1, quality: 0)]
+        XCTAssertEqual(sut.items, expectedResult)
+    }
 }
 
 // MARK: - Helpers

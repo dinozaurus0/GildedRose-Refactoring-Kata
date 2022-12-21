@@ -22,6 +22,7 @@ public struct ConjuredItemQualityCalculator: ItemQualityCalculator {
     public func computeQuality() {
         decreaseItemExpirationDate()
         decreaseItemQuality()
+        normaliseItemQuality()
     }
 
     // MARK: - Private Methods
@@ -30,6 +31,12 @@ public struct ConjuredItemQualityCalculator: ItemQualityCalculator {
             item.quality -= 2
         } else {
             item.quality -= 4
+        }
+    }
+
+    private func normaliseItemQuality() {
+        if item.quality < 0 {
+            item.quality = 0
         }
     }
 }
