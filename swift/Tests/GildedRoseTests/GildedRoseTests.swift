@@ -250,7 +250,7 @@ extension GildedRoseTests {
 extension GildedRoseTests {
     func test_updateQuality_withConjuredItem_withOneDayPassed_shouldDecreaseSellInAndQualityWithTwo() {
         // given
-        let itemsQualityCalculator = [ConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 10, quality: 20))]
+        let itemsQualityCalculator = [createConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 10, quality: 20))]
         let sut = makeSUT(itemsQualityCalculator: itemsQualityCalculator)
 
         // when
@@ -263,7 +263,7 @@ extension GildedRoseTests {
 
     func test_updateQuality_withConjuredItem_withSellDatePassed_shouldDecreaseSellInWithOneAndQualityWithFour() {
         // given
-        let itemsQualityCalculator = [ConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 0, quality: 11))]
+        let itemsQualityCalculator = [createConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 0, quality: 11))]
         let sut = makeSUT(itemsQualityCalculator: itemsQualityCalculator)
 
         // when
@@ -276,7 +276,7 @@ extension GildedRoseTests {
 
     func test_updateQuality_withConjuredItem_withQualityReachedZero_shouldDecreaseSellInWithOneAndQualityShouldRemainZero() {
         // given
-        let itemsQualityCalculator = [ConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 0, quality: 0))]
+        let itemsQualityCalculator = [createConjuredItemQualityCalculator(item: createItem(name: "Conjured Mana Cake", sellIn: 0, quality: 0))]
         let sut = makeSUT(itemsQualityCalculator: itemsQualityCalculator)
 
         // when
@@ -312,6 +312,10 @@ extension GildedRoseTests {
 
     private func createBackstageQualityCalculator(item: Item) -> BackstagePassQualityCalculator {
         BackstagePassQualityCalculator(item: item)
+    }
+
+    private func createConjuredItemQualityCalculator(item: Item) -> ConjuredItemQualityCalculator {
+        ConjuredItemQualityCalculator(item: item)
     }
 
     private func emulateDaysPassing(sut: GildedRose, numberOfDaysPassed: Int) {
